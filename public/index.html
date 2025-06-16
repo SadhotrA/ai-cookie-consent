@@ -3,15 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Consent Widget</title>
+    <title>AI Cookie Consent Widget</title>
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .demo-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+        .demo-button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Cookie Consent Widget</h1>
-    <p>This is the landing page for the Cookie Consent Widget.</p>
-    <p>To use the widget, include the following script in your website:</p>
-    <pre>
-        &lt;script src="https://your-vercel-url.vercel.app/cookie-consent.min.js"&gt;&lt;/script&gt;
-    </pre>
+    <h1>AI Cookie Consent Widget</h1>
+    <p>A lightweight, customizable cookie consent widget for your website.</p>
+
+    <h2>Quick Start</h2>
+    <p>Add this script to your website:</p>
+    <pre><code>&lt;script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"&gt;&lt;/script&gt;</code></pre>
+
+    <h2>Basic Usage</h2>
+    <pre><code>&lt;script&gt;
+    window.cookieConsent.init({
+        position: 'bottom-right',
+        theme: 'dark',
+        message: 'We use cookies to enhance your experience.',
+        acceptButtonText: 'Accept',
+        declineButtonText: 'Decline'
+    });
+&lt;/script&gt;</code></pre>
+
+    <h2>Try it out!</h2>
+    <button class="demo-button" onclick="showDemo()">Show Cookie Consent</button>
+
+    <h2>Advanced Configuration</h2>
+    <pre><code>window.cookieConsent.init({
+    position: 'bottom-right', // or 'bottom-left', 'top-right', 'top-left'
+    theme: 'dark', // or 'light'
+    message: 'Custom message here',
+    acceptButtonText: 'Accept',
+    declineButtonText: 'Decline',
+    onAccept: function() {
+        console.log('Cookies accepted!');
+    },
+    onDecline: function() {
+        console.log('Cookies declined!');
+    }
+});</code></pre>
+
+    <script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"></script>
+    <script>
+        function showDemo() {
+            window.cookieConsent.init({
+                position: 'bottom-right',
+                theme: 'dark',
+                message: 'This is a demo of the cookie consent widget. Try it out!',
+                acceptButtonText: 'Accept',
+                declineButtonText: 'Decline',
+                onAccept: function() {
+                    alert('Cookies accepted!');
+                },
+                onDecline: function() {
+                    alert('Cookies declined!');
+                }
+            });
+        }
+    </script>
 </body>
 </html> 
