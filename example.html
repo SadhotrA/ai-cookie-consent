@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent Widget Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cookie Consent Widget Demo</h1>
+        <p>This is a demo page showing how to integrate the cookie consent widget into your website.</p>
+    </div>
+
+    <!-- Load the widget -->
+    <script src="dist/cookie-consent.min.js"></script>
+    <script>
+        // Initialize the widget
+        const widget = new CookieConsentWidget();
+        
+        // Create and append the widget to the page
+        document.body.appendChild(widget.createWidget());
+        
+        // Set up your cookies
+        widget.cookies = [
+            {
+                name: 'session',
+                description: 'Session cookie for maintaining user state',
+                category: 'necessary',
+                expiry: 'Session',
+                enabled: false
+            },
+            {
+                name: 'analytics',
+                description: 'Google Analytics cookie for tracking user behavior',
+                category: 'analytics',
+                expiry: '1 year',
+                enabled: false
+            },
+            {
+                name: 'marketing',
+                description: 'Marketing cookie for personalized ads',
+                category: 'marketing',
+                expiry: '6 months',
+                enabled: false
+            }
+        ];
+        
+        // Render the cookies
+        widget.renderCookies();
+    </script>
+</body>
+</html> 
