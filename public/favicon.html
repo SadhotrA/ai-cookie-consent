@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Favicon</title>
+</head>
+<body>
+    <canvas id="favicon" width="32" height="32" style="display:none;"></canvas>
+    <script>
+        const canvas = document.getElementById('favicon');
+        const ctx = canvas.getContext('2d');
+        
+        // Draw a cookie shape
+        ctx.fillStyle = '#8B4513';  // Brown color
+        ctx.beginPath();
+        ctx.arc(16, 16, 14, 0, Math.PI * 2);
+        ctx.fill();
+        
+        // Draw chocolate chips
+        ctx.fillStyle = '#4A2C0A';  // Dark brown
+        const chips = [
+            [10, 10], [22, 12], [8, 20], [20, 22], [14, 8]
+        ];
+        chips.forEach(([x, y]) => {
+            ctx.beginPath();
+            ctx.arc(x, y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        
+        // Convert to favicon
+        const link = document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = canvas.toDataURL('image/x-icon');
+        document.head.appendChild(link);
+        
+        // Download the favicon
+        const a = document.createElement('a');
+        a.download = 'favicon.ico';
+        a.href = canvas.toDataURL('image/x-icon');
+        a.click();
+    </script>
+</body>
+</html> 
