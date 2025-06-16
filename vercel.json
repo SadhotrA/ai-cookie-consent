@@ -7,16 +7,24 @@
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/cookie-consent.min.js",
+      "dest": "/dist/cookie-consent.min.js"
+    },
     {
       "src": "/favicon.ico",
       "dest": "/public/favicon.ico"
     },
     {
       "src": "/(.*)",
-      "dest": "/$1"
+      "dest": "/public/$1"
     }
   ]
 } 

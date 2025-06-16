@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Consent Widget Test</title>
+    <!-- Replace YOUR_VERCEL_URL with your actual Vercel deployment URL -->
+    <script src="https://YOUR_VERCEL_URL.vercel.app/cookie-consent.min.js"></script>
+</head>
+<body>
+    <h1>Cookie Consent Widget Test Page</h1>
+    <p>This page demonstrates how to use the Cookie Consent Widget.</p>
+    
+    <script>
+        // Initialize the widget with custom options
+        window.cookieConsent.init({
+            position: 'bottom-right',
+            theme: 'dark',
+            message: 'We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.',
+            acceptButtonText: 'Accept',
+            declineButtonText: 'Decline',
+            onAccept: function() {
+                console.log('Cookies accepted!');
+            },
+            onDecline: function() {
+                console.log('Cookies declined!');
+            }
+        });
+    </script>
+</body>
+</html> 
