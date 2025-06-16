@@ -43,6 +43,24 @@ class CookieConsentWidget {
         };
     }
 
+    init(options = {}) {
+        const defaultOptions = {
+            position: 'bottom-right',
+            theme: 'dark',
+            message: 'We use cookies to enhance your experience.',
+            acceptButtonText: 'Accept',
+            declineButtonText: 'Decline',
+            onAccept: () => {},
+            onDecline: () => {}
+        };
+
+        this.options = { ...defaultOptions, ...options };
+        this.createWidget();
+        document.body.appendChild(this.widget);
+        this.updateTheme();
+        this.updateLanguage();
+    }
+
     createWidget() {
         const widget = document.createElement('div');
         widget.className = 'cookie-consent-widget';
@@ -592,5 +610,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Export the widget for production
-export { CookieConsentWidget }; 
+// Create a default instance
+const cookieConsent = new CookieConsentWidget();
+
+// Export the instance
+export default cookieConsent; 

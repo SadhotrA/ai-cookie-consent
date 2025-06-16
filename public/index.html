@@ -80,7 +80,9 @@
 
     <script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"></script>
     <script>
-        function showDemo() {
+        // Wait for the script to load
+        window.addEventListener('load', function() {
+            // Initialize the widget
             window.cookieConsent.init({
                 position: 'bottom-right',
                 theme: 'dark',
@@ -94,6 +96,26 @@
                     alert('Cookies declined!');
                 }
             });
+        });
+
+        function showDemo() {
+            if (window.cookieConsent) {
+                window.cookieConsent.init({
+                    position: 'bottom-right',
+                    theme: 'dark',
+                    message: 'This is a demo of the cookie consent widget. Try it out!',
+                    acceptButtonText: 'Accept',
+                    declineButtonText: 'Decline',
+                    onAccept: function() {
+                        alert('Cookies accepted!');
+                    },
+                    onDecline: function() {
+                        alert('Cookies declined!');
+                    }
+                });
+            } else {
+                console.error('Cookie consent widget not loaded');
+            }
         }
     </script>
 </body>

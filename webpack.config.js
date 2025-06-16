@@ -5,8 +5,11 @@ module.exports = {
     output: {
         filename: 'cookie-consent.min.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'CookieConsentWidget',
-        libraryTarget: 'umd',
+        library: {
+            name: 'cookieConsent',
+            type: 'umd',
+            export: 'default'
+        },
         globalObject: 'this'
     },
     module: {
