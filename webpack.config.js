@@ -3,8 +3,8 @@ const path = require('path');
 module.exports = {
     entry: './frontend/widget.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
         filename: 'cookie-consent.min.js',
+        path: path.resolve(__dirname, 'dist'),
         library: 'CookieConsentWidget',
         libraryTarget: 'umd',
         globalObject: 'this'
@@ -20,7 +20,12 @@ module.exports = {
                         presets: ['@babel/preset-env']
                     }
                 }
-            }
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
         ]
-    }
+    },
+    mode: 'production',
 }; 
