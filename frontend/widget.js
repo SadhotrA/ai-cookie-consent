@@ -1,3 +1,5 @@
+import AIService from './ai-service';
+
 class CookieConsentWidget {
     constructor() {
         this.widget = null;
@@ -5,6 +7,7 @@ class CookieConsentWidget {
         this.isOpen = false;
         this.currentLanguage = 'en';
         this.darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        this.aiService = null;
         this.languages = {
             en: {
                 title: 'Cookie Settings',
@@ -51,10 +54,16 @@ class CookieConsentWidget {
             acceptButtonText: 'Accept',
             declineButtonText: 'Decline',
             onAccept: () => {},
-            onDecline: () => {}
+            onDecline: () => {},
+            apiKey: null
         };
 
         this.options = { ...defaultOptions, ...options };
+
+        if (this.options.apiKey) {
+            this.aiService = new AIService(this.options.apiKey);
+        }
+
         this.createWidget();
         document.body.appendChild(this.widget);
         this.updateTheme();
@@ -139,6 +148,19 @@ class CookieConsentWidget {
         // Initial responsive styles
         this.updateResponsiveStyles();
 
+        const aiButtons = document.createElement('div');
+        aiButtons.className = 'ai-buttons';
+        aiButtons.innerHTML = `
+            <button class="analyze-button">Analyze Cookies</button>
+            <button class="policy-button">Generate Policy</button>
+            <button class="optimize-button">Optimize Settings</button>
+        `;
+
+        aiButtons.querySelector('.analyze-button').onclick = () => this.analyzeCookies();
+        aiButtons.querySelector('.policy-button').onclick = () => this.generatePolicy();
+        aiButtons.querySelector('.optimize-button').onclick = () => this.getOptimalSettings('general');
+
+        this.widget.appendChild(aiButtons);
         return widget;
     }
 
@@ -330,6 +352,71 @@ class CookieConsentWidget {
             this.widget.style.width = '';
             this.widget.style.maxWidth = '';
             this.widget.style.borderRadius = '';
+        }
+    }
+
+    async analyzeCookies() {
+        const analysis = await this.aiService.analyzeCookies(this.cookies);
+        if (analysis) {
+            this.showAnalysis(analysis);
+        }
+    }
+
+    async generatePolicy() {
+        const policy = await this.aiService.generateCookiePolicy(this.cookies);
+        if (policy) {
+            this.showPolicy(policy);
+        }
+    }
+
+    async getOptimalSettings(websiteType) {
+        const settings = await this.aiService.suggestOptimalSettings(this.cookies, websiteType);
+        if (settings) {
+            this.applyOptimalSettings(settings);
+        }
+    }
+
+    showAnalysis(analysis) {
+        const modal = document.createElement('div');
+        modal.className = 'cookie-analysis-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>Cookie Analysis</h3>
+                <div class="analysis-content">${analysis}</div>
+                <button class="close-button">Close</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.close-button').onclick = () => {
+            modal.remove();
+        };
+    }
+
+    showPolicy(policy) {
+        const modal = document.createElement('div');
+        modal.className = 'cookie-policy-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>Cookie Policy</h3>
+                <div class="policy-content">${policy}</div>
+                <button class="close-button">Close</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+
+        modal.querySelector('.close-button').onclick = () => {
+            modal.remove();
+        };
+    }
+
+    applyOptimalSettings(settings) {
+        try {
+            const parsedSettings = JSON.parse(settings);
+            this.cookies = parsedSettings.cookies;
+            this.renderCookies();
+        } catch (error) {
+            console.error('Error applying optimal settings:', error);
         }
     }
 }

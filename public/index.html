@@ -43,24 +43,29 @@
 </head>
 <body>
     <h1>AI Cookie Consent Widget</h1>
-    <p>A lightweight, customizable cookie consent widget for your website.</p>
+    <p>A lightweight, customizable cookie consent widget with AI features.</p>
 
     <h2>Quick Start</h2>
-    <p>Add this script to your website:</p>
-    <pre><code>&lt;script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"&gt;&lt;/script&gt;</code></pre>
+    <p>Add these scripts to your website:</p>
+    <pre><code>&lt;script src="config.js"&gt;&lt;/script&gt;
+&lt;script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"&gt;&lt;/script&gt;</code></pre>
 
     <h2>Basic Usage</h2>
     <pre><code>&lt;script&gt;
+    // Initialize with config settings
     window.cookieConsent.init({
-        position: 'bottom-right',
-        theme: 'dark',
-        message: 'We use cookies to enhance your experience.',
-        acceptButtonText: 'Accept',
-        declineButtonText: 'Decline'
+        apiKey: window.CONFIG.OPENAI_API_KEY,
+        ...window.CONFIG.WIDGET_SETTINGS,
+        onAccept: function() {
+            console.log('Cookies accepted!');
+        },
+        onDecline: function() {
+            console.log('Cookies declined!');
+        }
     });
 &lt;/script&gt;</code></pre>
 
-    <h2>Try it out!</h2>
+    <h2>Demo</h2>
     <button class="demo-button" onclick="showDemo()">Show Cookie Consent</button>
 
     <h2>Advanced Configuration</h2>
@@ -78,44 +83,22 @@
     }
 });</code></pre>
 
-    <script src="https://ai-cookie-consent.vercel.app/cookie-consent.min.js"></script>
+    <!-- Load config first -->
+    <script src="/config.js"></script>
+    <!-- Then load the widget -->
+    <script src="/dist/cookie-consent.min.js"></script>
     <script>
-        // Wait for the script to load
-        window.addEventListener('load', function() {
-            // Initialize the widget
+        function showDemo() {
             window.cookieConsent.init({
-                position: 'bottom-right',
-                theme: 'dark',
-                message: 'This is a demo of the cookie consent widget. Try it out!',
-                acceptButtonText: 'Accept',
-                declineButtonText: 'Decline',
+                apiKey: window.CONFIG.OPENAI_API_KEY,
+                ...window.CONFIG.WIDGET_SETTINGS,
                 onAccept: function() {
-                    alert('Cookies accepted!');
+                    console.log('Cookies accepted!');
                 },
                 onDecline: function() {
-                    alert('Cookies declined!');
+                    console.log('Cookies declined!');
                 }
             });
-        });
-
-        function showDemo() {
-            if (window.cookieConsent) {
-                window.cookieConsent.init({
-                    position: 'bottom-right',
-                    theme: 'dark',
-                    message: 'This is a demo of the cookie consent widget. Try it out!',
-                    acceptButtonText: 'Accept',
-                    declineButtonText: 'Decline',
-                    onAccept: function() {
-                        alert('Cookies accepted!');
-                    },
-                    onDecline: function() {
-                        alert('Cookies declined!');
-                    }
-                });
-            } else {
-                console.error('Cookie consent widget not loaded');
-            }
         }
     </script>
 </body>

@@ -15,6 +15,9 @@ build/
 .env.test.local
 .env.production.local
 
+# Configuration
+public/config.js
+
 # IDE and editor files
 .idea/
 .vscode/
