@@ -16,7 +16,7 @@ build/
 .env.production.local
 
 # Configuration
-public/config.js
+# public/config.js
 
 # IDE and editor files
 .idea/
